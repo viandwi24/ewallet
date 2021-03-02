@@ -8,7 +8,17 @@ trait UseUuid
 {
     protected static function bootUseUuid() {
         static::creating(function ($model) {
-            $model->uuid = (string) Str::uuid();
+            $model->{$model->getKeyName()} = (string) Str::uuid();
         });
+    }
+
+    public function getIncrementing()
+    {
+        return false;
+    }
+    
+    public function getKeyType()
+    {
+        return 'string';
     }
 }

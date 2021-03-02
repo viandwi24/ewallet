@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Helpers\Wallet;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -55,5 +56,10 @@ class User extends Authenticatable
     public function cashes()
     {
         return $this->hasMany(Cash::class);
+    }
+
+    public function wallet()
+    {
+        return (new Wallet($this->id));
     }
 }

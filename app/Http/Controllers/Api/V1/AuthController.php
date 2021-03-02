@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 
 use App\Models\User;
 use App\Http\Resources\UserResource;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
@@ -156,8 +157,15 @@ class AuthController extends Controller
      */
     public function user()
     {
+        // return Auth::user()->wallet()->getBalance();
+        $user = Auth::user();
+        $wallet = $user->wallet();
+        $additional = [
+            'balance' => $wallet->getBalance()
+        ];
+        $data = array_merge( (new Collection($user))->toArray(), $additional);
         return $this->response(
-            (new UserResource(Auth::user())), 
+            $data, 
             'Get data success',
             true,
             null, null,

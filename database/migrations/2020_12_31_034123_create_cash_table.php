@@ -15,7 +15,7 @@ class CreateCashTable extends Migration
     {
         Schema::create('cash', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignUuid('user_id')->onUpdate('cascade')->onDelete('cascade');
             
             $table->double('debit', 2);
             $table->double('credit', 2);
